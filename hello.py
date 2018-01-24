@@ -1,32 +1,46 @@
-from flask import Flask, url_for, render_template
-app = Flask(__name__)
+from flask import Flask, request, jsonify
 
+app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "Hello World!!!"
+    return app.send_static_file('index.html')
 
-@app.route('/user/<username>')
-def show_user_profile(username):
-    return 'User %s' % username
+@app.route('/newGameData')
+def newGameData():
+    jsondata = {
+            "rowsCount": 2,
+            "columnsCount": 2,
+            "data": [
+                [
+                    {
+                        "type": "2",
+                        "clickable": True
+                    },
+                    {
+                        "type": "mine",
+                        "clickable": True
+                    }
+                ],
+                [
+                    {
+                        "type": "mine",
+                        "clickable": True
+                    },
+                    {
+                        "type": "2",
+                        "clickable": True
+                    }
+                ]
+            ]
+        }
+    return jsonify(jsondata)
 
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
-    return 'Post %d' % post_id
-
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('hello.html', name=name)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        do_the_login()
-    else:
-        show_the_login_form()
-
-#~ with app.test_request_context():
-    #~ print url_for('index')
-    #~ print url_for('login')
-    #~ print url_for('login', next='/')
-    #~ print url_for('profile', username='John Doe')
+@app.route('/post', methods=['POST'])
+def post():
+    print request.json
+    if not request.json or not 'number' in request.json:
+        abort(400)
+    return jsonify({
+        'number': request.json['number'] + 1
+    })
