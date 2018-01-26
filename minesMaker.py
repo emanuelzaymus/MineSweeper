@@ -6,7 +6,7 @@ def __createEmptyTable(width, height):
     ret = []
     line = []
     for i in range(0, width):
-        line.append({"type":"empty", "clickable":True})
+        line.append({"type":"empty", "clickable":True, "marked":False})
     for i in range(0, height):
         ret.append(deepcopy(line))
     return ret

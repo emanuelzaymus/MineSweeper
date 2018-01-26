@@ -1,7 +1,7 @@
 from minesMaker import generateMines
 
 
-class minesManager:
+class MinesManager:
 
     __levels = [
         {"width": 9, "height": 9, "countOfMines": 10},
@@ -27,7 +27,10 @@ class minesManager:
         gameData = { 
             "columns": self.__width,
             "rows": self.__height,
-            "mines": self.__countOfMines,
+            "countOfMines": self.__countOfMines,
+            "message": "",
+            "clickedX": -1,
+            "clickedY": -1,
             "data": generateMines(self.__width, self.__height, self.__countOfMines)
         }
         return gameData

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import json
-from minesManager import minesManager
+from minesManager import MinesManager
+from minesChecker import MinesChecker
 
 app = Flask(__name__)
 
@@ -151,13 +152,14 @@ jsondata2 = {
            {'clickable': True, 'type': 2},
            {'clickable': True, 'type': 1}]]}
 
-manager = minesManager()
+manager = MinesManager()
+checker = MinesChecker()
 generatedJson = {}
 
 @app.route('/')
 def index():
     global manager
-    manager = minesManager()
+    manager = MinesManager()
     return app.send_static_file('index.html')
 
 @app.route('/newGameData')
@@ -170,4 +172,5 @@ def newGameData():
 def postMoveData():
     if not request.json:
         abort(400)
-    return jsonify(generatedJson)
+    ret = checker.checkMines(request.json)
+    return jsonify(ret)

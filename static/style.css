@@ -38,7 +38,7 @@ button:hover {
     box-shadow: 0 6px 16px 0 rgba(0,0,0,0.24);
 }
 
-.grid-container {
+#main-container {
     display: inline-grid;
     grid-template-columns: auto;
     background-color: darkblue;
