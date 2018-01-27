@@ -12,6 +12,16 @@ h1 {
     font-weight: 600;
 }
 
+p {
+    text-align: center;
+    color: darkblue;
+    font-family: Arial, Helvetica, sans-serif;
+   
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0px;
+}
+
 button {
     color: white;
     padding: 10px 32px;
